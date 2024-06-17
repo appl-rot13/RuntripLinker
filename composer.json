@@ -1,0 +1,7 @@
+{
+    "require": {
+        "abraham/twitteroauth": "^7.0",
+        "vlucas/phpdotenv": "^5.6",
+        "nojimage/twitter-text-php": "^3.3"
+    }
+}
