@@ -5,6 +5,7 @@ require_once __DIR__ . '/includes/common.php';
 $userId = $_ENV['RUNTRIP_USER_ID'];
 $journalId = getLatestJournal($userId)['id'];
 
+logging('Polling started.');
 while (true) {
     try {
         $journals = getNewJournals($userId, $journalId);
