@@ -11,17 +11,17 @@ function getNewJournals(int $userId, int $journalId): Generator
     $journals = getJournals($userId);
 
     $i = count($journals);
-    $skip = true;
+    $take = false;
 
     while ($i) {
         $journal = $journals[--$i]['journal'];
 
-        if (!$skip) {
+        if ($take) {
             yield $journal;
         }
 
         if ($journal['id'] === $journalId) {
-            $skip = false;
+            $take = true;
         }
     }
 }
