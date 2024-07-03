@@ -49,7 +49,7 @@ $ composer install
 
 #### Runtrip関係の設定
 
-RuntripのユーザーIDを設定します。
+[リンク先](https://support.runtrip.jp/hc/ja/articles/11246259860249)を参考にRuntripのユーザーIDを取得し、設定します。
 
 ```env
 RUNTRIP_USER_ID=
@@ -85,3 +85,7 @@ cronによってシステム起動時に `index.php` ファイルが実行され
 ## ライセンス
 
 このソフトウェアは[Unlicense](LICENSE)に基づいてライセンスされています。
+
+## 関連項目
+
+- https://appl-rot13.hatenablog.jp/entry/2024/07/03/212921
