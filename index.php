@@ -3,25 +3,18 @@
 require_once __DIR__ . '/includes/common.php';
 
 $userId = $_ENV['RUNTRIP_USER_ID'];
-$journalId = getLatestJournal($userId)['id'];
+$journalId = getLatestJournalId($userId);
 
 logging('Polling started.');
 while (true) {
     try {
         $journals = getNewJournals($userId, $journalId);
         foreach ($journals as $journal) {
-            $journalId = $journal['id'];
-
-            $tags = implode(' ', array_filter(array_map('sanitizeHashtag', $journal['tags'])));
-            $journalUrl = 'https://runtrip.jp/journals/' . $journalId;
-            $text = createTweetText($journal['description'], $tags, $journalUrl);
-            if ($text === '') {
-                continue;
-            }
-
-            $imageUrl = $journal['imageUrls'][0];
-            $result = tweet($text, $imageUrl, $_ENV['TWITTER_ACCESS_TOKEN'], $_ENV['TWITTER_ACCESS_TOKEN_SECRET']);
+            $result = tweetJournal($journal);
             logging($result);
+
+            $journalId = $journal['id'];
+            setLatestJournalId($userId, $journalId);
         }
     } catch (Throwable $t) {
         logging($t);

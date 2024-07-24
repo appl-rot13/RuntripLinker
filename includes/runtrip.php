@@ -1,5 +1,28 @@
 <?php
 
+function getCacheFilename(int $userId): string
+{
+    return $userId . '.cache';
+}
+
+function getLatestJournalId(int $userId): int
+{
+    $filename = getCacheFilename($userId);
+    $journalId = unserializeFile($filename);
+    if ($journalId === null) {
+        $journalId = getLatestJournal($userId)['id'];
+        setLatestJournalId($userId, $journalId);
+    }
+
+    return $journalId;
+}
+
+function setLatestJournalId(int $userId, int $journalId): void
+{
+    $filename = getCacheFilename($userId);
+    serializeFile($filename, $journalId);
+}
+
 function getLatestJournal(int $userId): array
 {
     $journals = getJournals($userId);
@@ -48,4 +71,17 @@ function createTweetText(string $text, string $tags, string $url): string
     }
 
     return limitTweetText($text, suffix: $suffix);
+}
+
+function tweetJournal(array $journal): array
+{
+    $tags = implode(' ', array_filter(array_map('sanitizeHashtag', $journal['tags'])));
+    $journalUrl = 'https://runtrip.jp/journals/' . $journal['id'];
+    $text = createTweetText($journal['description'], $tags, $journalUrl);
+    if ($text === '') {
+        return array();
+    }
+
+    $imageUrl = $journal['imageUrls'][0];
+    return tweet($text, $imageUrl, $_ENV['TWITTER_ACCESS_TOKEN'], $_ENV['TWITTER_ACCESS_TOKEN_SECRET']);
 }
