@@ -2,7 +2,7 @@
 
 function getCacheFilename(int $userId): string
 {
-    return $userId . '.cache';
+    return __DIR__ . '/../' . $userId . '.cache';
 }
 
 function getLatestJournalId(int $userId): int
