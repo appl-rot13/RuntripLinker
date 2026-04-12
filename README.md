@@ -1,5 +1,7 @@
 [English](README.md) | [日本語](README.ja.md)
 
+***This repository has moved to [runtrip-linker-js](../../../runtrip-linker-js).***
+
 # Runtrip Linker
 
 An application that posts on Runtrip to social media(X/Twitter).

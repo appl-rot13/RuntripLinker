@@ -1,5 +1,7 @@
 [English](README.md) | [日本語](README.ja.md)
 
+***本リポジトリは [runtrip-linker-js](../../../runtrip-linker-js) に移動しました。***
+
 # Runtrip Linker
 
 Runtripでの投稿をSNS(X/Twitter)にも反映するアプリケーション。
